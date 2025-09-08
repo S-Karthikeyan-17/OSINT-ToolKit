@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Team Recon Automation Toolkit</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Red Team Recon Toolkit</span>
+                        <span class="version">v2.0</span>
+                    </div>
+                    <div class="status-indicator" id="statusIndicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Ready</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="btn-icon" id="settingsBtn" title="Settings">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <button class="btn-icon" id="helpBtn" title="Help">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section" id="inputSection">
+                <div class="input-card">
+                    <div class="input-header">
+                        <h2><i class="fas fa-crosshairs"></i> Target Configuration</h2>
+                    </div>
+                    <div class="input-body">
+                        <!-- Basic Configuration -->
+                        <div class="config-section">
+                            <h3>Basic Configuration</h3>
+                            <div class="form-group">
+                                <label for="targetInput">Target Domain</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="targetInput" placeholder="example.com" />
+                                    <i class="fas fa-globe input-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reconnaissance Type Selection -->
+                        <div class="config-section">
+                            <h3>Reconnaissance Type</h3>
+                            <div class="recon-type-selector">
+                                <div class="recon-type-option" data-type="quick">
+                                    <input type="radio" id="quickRecon" name="reconType" value="quick" checked />
+                                    <label for="quickRecon">
+                                        <div class="recon-type-icon"><i class="fas fa-bolt"></i></div>
+                                        <div class="recon-type-content">
+                                            <div class="recon-type-title">Quick Scan</div>
+                                            <div class="recon-type-desc">Basic subdomain enumeration and port scanning </div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="recon-type-option" data-type="normal">
+                                    <input type="radio" id="normalRecon" name="reconType" value="normal" />
+                                    <label for="normalRecon">
+                                        <div class="recon-type-icon"><i class="fas fa-search"></i></div>
+                                        <div class="recon-type-content">
+                                            <div class="recon-type-title">Normal Scan</div>
+                                            <div class="recon-type-desc">Comprehensive enumeration with OSINT gathering</div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="recon-type-option" data-type="deep">
+                                    <input type="radio" id="deepRecon" name="reconType" value="deep" />
+                                    <label for="deepRecon">
+                                        <div class="recon-type-icon"><i class="fas fa-microscope"></i></div>
+                                        <div class="recon-type-content">
+                                            <div class="recon-type-title">Deep Scan</div>
+                                            <div class="recon-type-desc">Extensive analysis with vulnerability assessment</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service Selection -->
+                        <div class="config-section">
+                            <h3>Services & Modules</h3>
+                            <div class="services-grid">
+                                <div class="service-category">
+                                    <h4>Core Services</h4>
+                                    <div class="service-options">
+                                        <label class="service-checkbox">
+                                            <input type="checkbox" id="domainSubdomainCheck" checked />
+                                            <span class="service-checkmark"></span>
+                                            <div class="service-info">
+                                                <span class="service-name">Domain & Subdomain Extraction</span>
+                                                <span class="service-desc">DNS enumeration, brute force, certificate transparency</span>
+                                            </div>
+                                        </label>
+                                        <label class="service-checkbox">
+                                            <input type="checkbox" id="techFingerprintCheck" checked />
+                                            <span class="service-checkmark"></span>
+                                            <div class="service-info">
+                                                <span class="service-name">Technology Fingerprinting</span>
+                                                <span class="service-desc">Web technology stack detection and analysis</span>
+                                            </div>
+                                        </label>
+                                        <label class="service-checkbox">
+                                            <input type="checkbox" id="portScanCheck" checked />
+                                            <span class="service-checkmark"></span>
+                                            <div class="service-info">
+                                                <span class="service-name">Port Scanning</span>
+                                                <span class="service-desc">Service discovery and banner grabbing</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="service-category">
+                                    <h4>Intelligence Gathering</h4>
+                                    <div class="service-options">
+                                        <label class="service-checkbox">
+                                            <input type="checkbox" id="employeeDataCheck" />
+                                            <span class="service-checkmark"></span>
+                                            <div class="service-info">
+                                                <span class="service-name">Employee Data & Credential Discovery</span>
+                                                <span class="service-desc">Email harvesting, GitHub code search, paste sites</span>
+                                            </div>
+                                        </label>
+                                        <label class="service-checkbox">
+                                            <input type="checkbox" id="cloudExposureCheck" />
+                                            <span class="service-checkmark"></span>
+                                            <div class="service-info">
+                                                <span class="service-name">Cloud Exposure</span>
+                                                <span class="service-desc">S3 bucket discovery, cloud misconfigurations</span>
+                                            </div>
+                                        </label>
+                                        <label class="service-checkbox">
+                                            <input type="checkbox" id="cveMappingCheck" />
+                                            <span class="service-checkmark"></span>
+                                            <div class="service-info">
+                                                <span class="service-name">CVE Mapping</span>
+                                                <span class="service-desc">Vulnerability assessment based on detected technologies</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" id="startReconBtn">
+                                <i class="fas fa-play"></i>
+                                Start Reconnaissance
+                            </button>
+                            <button class="btn btn-danger" id="stopScanBtn" style="display: none;">
+                                <i class="fas fa-stop"></i>
+                                Stop Scan
+                            </button>
+                            <button class="btn btn-secondary" id="clearBtn">
+                                <i class="fas fa-refresh"></i>
+                                Reset Configuration
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-card">
+                    <div class="progress-header">
+                        <h3><i class="fas fa-clock"></i> Reconnaissance in Progress</h3>
+                        <div class="progress-actions">
+                            <button class="btn-icon" id="stopBtn" title="Stop Scan">
+                                <i class="fas fa-stop"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="progress-body">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-info">
+                            <span id="progressText">Initializing scan...</span>
+                            <span id="progressTime">00:00</span>
+                        </div>
+                        <div class="progress-stages">
+                            <div class="stage" data-stage="dns">
+                                <i class="fas fa-server"></i>
+                                <span>DNS Resolution</span>
+                            </div>
+                            <div class="stage" data-stage="subdomains">
+                                <i class="fas fa-sitemap"></i>
+                                <span>Subdomain Enum</span>
+                            </div>
+                            <div class="stage" data-stage="ports">
+                                <i class="fas fa-door-open"></i>
+                                <span>Port Scanning</span>
+                            </div>
+                            <div class="stage" data-stage="tech">
+                                <i class="fas fa-code"></i>
+                                <span>Tech Detection</span>
+                            </div>
+                            <div class="stage" data-stage="osint">
+                                <i class="fas fa-search"></i>
+                                <span>OSINT Gathering</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2><i class="fas fa-chart-line"></i> Reconnaissance Results</h2>
+                    <div class="results-actions">
+                        <button class="btn btn-primary" id="enhanceBtn">
+                            <i class="fas fa-spider"></i>
+                            Enhance with SpiderFoot
+                        </button>
+                        <button class="btn btn-success" id="exportBtn">
+                            <i class="fas fa-download"></i>
+                            Export Results
+                        </button>
+                        <button class="btn btn-secondary" id="newScanBtn">
+                            <i class="fas fa-plus"></i>
+                            New Scan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-grid" id="summaryGrid">
+                    <!-- Cards will be populated by JavaScript -->
+                </div>
+
+                <!-- Detailed Results -->
+                <div class="results-tabs">
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="overview">Overview</button>
+                        <button class="tab-btn" data-tab="subdomains">Subdomains</button>
+                        <button class="tab-btn" data-tab="hosts">Hosts & Ports</button>
+                        <button class="tab-btn" data-tab="technology">Technology</button>
+                        <button class="tab-btn" data-tab="osint">OSINT</button>
+                        <button class="tab-btn" data-tab="vulnerabilities">Vulnerabilities</button>
+                        <button class="tab-btn" data-tab="raw">Raw Data</button>
+                    </div>
+
+                    <div class="tab-content">
+                        <!-- Overview Tab -->
+                        <div class="tab-panel active" id="overviewTab">
+                            <div class="overview-grid">
+                                <div class="overview-card">
+                                    <h4>Target Information</h4>
+                                    <div id="targetInfo"></div>
+                                </div>
+                                <div class="overview-card">
+                                    <h4>Scan Statistics</h4>
+                                    <div id="scanStats"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Subdomains Tab -->
+                        <div class="tab-panel" id="subdomainsTab">
+                            <div class="data-table-container">
+                                <table class="data-table" id="subdomainsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Subdomain</th>
+                                            <th>Status</th>
+                                            <th>IP Address</th>
+                                            <th>Technology</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Hosts & Ports Tab -->
+                        <div class="tab-panel" id="hostsTab">
+                            <div id="hostsContainer"></div>
+                        </div>
+
+                        <!-- Technology Tab -->
+                        <div class="tab-panel" id="technologyTab">
+                            <div id="technologyContainer"></div>
+                        </div>
+
+                        <!-- OSINT Tab -->
+                        <div class="tab-panel" id="osintTab">
+                            <div class="osint-grid">
+                                <div class="osint-card">
+                                    <h4><i class="fab fa-github"></i> GitHub Intelligence</h4>
+                                    <div id="githubResults"></div>
+                                </div>
+                                <div class="osint-card">
+                                    <h4><i class="fas fa-paste"></i> Paste Sites</h4>
+                                    <div id="pasteResults"></div>
+                                </div>
+                                <div class="osint-card">
+                                    <h4><i class="fab fa-aws"></i> Cloud Storage</h4>
+                                    <div id="cloudResults"></div>
+                                </div>
+                                <div class="osint-card">
+                                    <h4><i class="fas fa-envelope"></i> Email Intelligence</h4>
+                                    <div id="emailResults"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vulnerabilities Tab -->
+                        <div class="tab-panel" id="vulnerabilitiesTab">
+                            <div id="vulnerabilitiesContainer"></div>
+                        </div>
+
+                        <!-- Raw Data Tab -->
+                        <div class="tab-panel" id="rawTab">
+                            <div class="code-container">
+                                <div class="code-header">
+                                    <span>Raw JSON Response</span>
+                                    <button class="btn-icon" id="copyRawBtn" title="Copy to Clipboard">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <pre id="rawData"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="btn-icon" id="closeSettingsBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="backendUrl">Backend URL</label>
+                    <input type="text" id="backendUrl" value="http://localhost:5000" />
+                </div>
+                <div class="form-group">
+                    <label for="refreshInterval">Progress Refresh Interval (ms)</label>
+                    <input type="number" id="refreshInterval" value="1000" min="1000" max="10000" />
+                </div>
+                            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="saveSettingsBtn">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal" id="helpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Help & Documentation</h3>
+                <button class="btn-icon" id="closeHelpBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <h4>Quick Start</h4>
+                    <ol>
+                        <li>Enter your target domain (e.g., example.com)</li>
+                        <li>Provide your authorization key</li>
+                        <li>Configure optional settings</li>
+                        <li>Click "Start Reconnaissance"</li>
+                    </ol>
+                </div>
+                <div class="help-section">
+                    <h4>Features</h4>
+                    <ul>
+                        <li><strong>Subdomain Enumeration:</strong> Discovers subdomains using multiple techniques</li>
+                        <li><strong>Port Scanning:</strong> Identifies open ports and services</li>
+                        <li><strong>Technology Detection:</strong> Identifies web technologies and frameworks</li>
+                        <li><strong>OSINT Gathering:</strong> Searches GitHub, paste sites, and cloud storage</li>
+                        <li><strong>Vulnerability Assessment:</strong> Maps CVEs to detected technologies</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h4>Legal Notice</h4>
+                    <p><strong>⚠️ IMPORTANT:</strong> Only use this tool on domains you own or have explicit authorization to test. Unauthorized reconnaissance may violate laws and terms of service.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

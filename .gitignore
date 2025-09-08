@@ -1,0 +1,83 @@
+# Git ignore for Red Team Recon Automation Toolkit
+
+# --- OS / Editor junk ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Packaging / build
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+wheels/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.mypy_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs & temp
+*.log
+logs/
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# Node (none currently, but safe)
+node_modules/
+
+# --- App specific ---
+# Secrets
+.env
+.env.*
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Outputs and generated artifacts
+outputs/
+backend/outputs/
+backend/outputs/**/*
+backend/test_output/
+backend/test_output/**/*
+
+# Cache / compiled
+**/__pycache__/
+**/*.pyc
+
+# SpiderFoot inner git (if present)
+backend/spiderfoot/.git/
+
+# OS-specific
+$RECYCLE.BIN/
+*.swp
+*.swo
